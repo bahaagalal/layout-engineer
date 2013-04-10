@@ -1,0 +1,12 @@
+{
+  "name": "layout-engineer",
+  "version": "0.1.0",
+  "main": ["./src/layout-engineer.js", "./src/layout-engineer.css"],
+  "dependencies": {
+  	"jquery": "*",
+  	"jquery-ui": "*"
+  },
+  "devDependencies": {
+  	"jasmine-jquery": "*"
+  }
+}
