@@ -3,18 +3,247 @@
 <head>
 	<!-- page title -->
 	<title>Layout Engineer - Demo</title>
-
+	<!-- meta tag for responsive design -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- typekit font -->
+	<script type="text/javascript" src="//use.typekit.net/gvm8tvr.js"></script>
+	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+	<!-- jquery css file -->
+	<link rel="stylesheet" type="text/css" href="../vendor/jquery-ui/themes/ui-lightness/jquery-ui.min.css">
 	<!-- css file -->
-	<link rel="stylesheet" type="text/css" href="../src/layout-engineer.css">
+	<link rel="stylesheet" type="text/css" href="../src/css/layout-engineer.css">
 </head>
 <body>
+	<div id="page-creator">
 
+	</div>
 
+	<div class="wrapper display-none">
+
+		<div class="layout-engineer-modal background-color-black position-absolute z-index-3 display-none">
+			<h1 class="font-weight-regular font-size-xlarge color-white">Write your URL</h1>
+			<input type="text" name="url" class="background-color-white border-radius-large color-black font-weight-regular font-size-medium layout-engineer-link-textbox" placeholder="http://www.example.com/">
+			<ul class="display-block text-align-right">
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block color-white font-weight-normal font-size-medium">
+						Cancel
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block background-color-white color-black border-radius-large font-weight-normal font-size-medium layout-engineer-ok-button">
+						OK
+					</a>
+				</li>
+			</lu>
+		</div>
+
+		<div class="layout-engineer-modal background-color-black position-absolute z-index-3 display-none">
+			<ul class="display-block layout-engineer-colors-icons">
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #FFFFFF">
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #B29881">
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #da6b5b">
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #dc8e0f">
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #d7b100">
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #8caf55">
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #4ea26e">
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #58b3ac">
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #6694bc">
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #8d87c6">
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #a978ba">
+					</a>
+				</li>
+				<li class="display-inline-block">
+					<a href="javascript:void(0);" class="display-inline-block border-radius-medium layout-engineer-color-icon" style="background-color: #000000">
+					</a>
+				</li>
+			</lu>
+		</div>
+
+		<div class="layout-engineer-page">
+			<div class="layout-engineer-block layout-engineer-text-block font-size-medium font-weight-regular color-black position-relative">
+				<div class="layout-engineer-toolpane position-absolute display-block">
+
+					<ul class="layout-engineer-left-pane display-inline-block background-color-black">
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-bold">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-underline">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-italic">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-h1">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-h2">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-h3">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-align-left">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-align-center">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-align-right">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-align-justify">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-unordered-list">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-ordered-list">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-link">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-color">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-code">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-trash">
+							</a>
+						</li>
+					</ul>
+					
+				</div>
+				<div class="layout-engineer-block-content">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id mauris massa. Nulla nec lobortis magna. Phasellus vitae erat risus, pellentesque ornare tellus. Donec vehicula tellus id purus luctus ac hendrerit dolor placerat. In pharetra, orci ut feugiat pellentesque, massa felis vestibulum diam, sed fermentum augue turpis eu est. Phasellus placerat vehicula viverra. Fusce pretium nulla sit amet arcu lobortis nec eleifend purus sollicitudin. Nunc faucibus pellentesque nulla, commodo venenatis dui aliquet sit amet. Praesent nec metus odio, at molestie erat. Praesent suscipit iaculis nibh quis auctor. Nulla at tortor quam
+					<br><br>
+					Aliquam lobortis varius orci, sit amet luctus lectus pharetra vitae. Vestibulum a urna mi. Suspendisse id turpis odio. In molestie imperdiet turpis id sollicitudin. Maecenas sit amet urna sem. Nullam sagittis, nisl a rhoncus elementum, mauris nisl elementum mi, non fringilla augue ligula quis nulla. Mauris luctus dignissim eros vel accumsan. Integer bibendum, ipsum sed tincidunt luctus, ligula enim eleifend arcu, ac varius neque magna vel erat. Maecenas id lectus sapien, at pulvinar nisl. Mauris iaculis nibh ac ligula aliquam nec eleifend nibh laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					<br><br>
+					Nam elementum euismod dui ornare mattis. Phasellus eu felis tellus, ut auctor dui. Pellentesque adipiscing leo sit amet urna consectetur rutrum. Donec lacus justo, dapibus sit amet mollis a, mattis at ipsum. Sed ipsum odio, auctor id bibendum eget, interdum sed dolor. Maecenas ipsum dolor, tincidunt eu convallis eget, gravida ut urna. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+				</div>
+			</div>
+		</div>
+
+		<div class="layout-engineer-block layout-engineer-image-block font-size-medium font-weight-regular color-black position-relative">
+				<div class="layout-engineer-image-block-content display-block text-align-center">
+					<a href="javascript:void(0);" class="display-inline-block background-color-black color-white border-radius-large layout-engineer-upload-image-button font-weight-semibold font-size-large">
+						Upload Image
+					</a>
+					<p class="font-size-small font-weight-semibold color-black">
+						or drag your image here
+					</p>
+				</div>
+		</div>
+
+		<div class="layout-engineer-block layout-engineer-image-block font-size-medium font-weight-regular color-black position-relative display-none">
+				<div class="layout-engineer-image-block-content display-block text-align-center">
+					<div class="display-inline-block background-color-black color-white layout-engineer-upload-progress-bar text-align-left">
+						<div class="font-weight-semibold font-size-large color-black display-inline-block background-color-white color-black  layout-engineer-upload-progress-meter" style="width: 25%">
+							25%
+						</div>
+					</div>
+				</div>
+		</div>
+
+		<div class="layout-engineer-block layout-engineer-image-block display-inline-block font-size-medium font-weight-regular color-black position-relative display-none">
+				<div class="display-inline-block text-align-center position-relative">
+					<div class="layout-engineer-upload-box position-absolute z-index-3">
+						<a href="javascript:void(0);" class="display-inline-block background-color-black color-white border-radius-large layout-engineer-upload-image-button font-weight-semibold font-size-large">
+							Upload Image
+						</a>
+						<p class="font-size-small font-weight-semibold color-black">
+							or drag your image here
+						</p>
+					</div>
+					<img src="http://dribbble.s3.amazonaws.com/users/1636/screenshots/325244/sixbase-logo.jpg">
+					
+				</div>
+		</div>
+
+		<div class="layout-engineer-page">
+			<div class="layout-engineer-block layout-engineer-code-block font-size-medium font-weight-regular color-black position-relative display-none">
+				<div class="layout-engineer-toolpane position-absolute display-block">
+					<ul class="layout-engineer-left-pane display-inline-block background-color-black">
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-preview">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-code">
+							</a>
+						</li>
+						<li class="display-inline-block layout-engineer-toolpane-icon-element">
+							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-trash">
+							</a>
+						</li>
+					</ul>
+					
+				</div>
+				<div class="layout-engineer-block-content">
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id mauris massa. Nulla nec lobortis magna. Phasellus vitae erat risus, pellentesque ornare tellus. Donec vehicula tellus id purus luctus ac hendrerit dolor placerat. In pharetra, orci ut feugiat pellentesque, massa felis vestibulum diam, sed fermentum augue turpis eu est. Phasellus placerat vehicula viverra. Fusce pretium nulla sit amet arcu lobortis nec eleifend purus sollicitudin. Nunc faucibus pellentesque nulla, commodo venenatis dui aliquet sit amet. Praesent nec metus odio, at molestie erat. Praesent suscipit iaculis nibh quis auctor. Nulla at tortor quam
+				</div>
+			</div>
+		</div>
+
+	</div>
 	<!-- javascript files -->
 	<!-- javascript dependencies ["jquery","jquery-ui"] -->
 	<script type="text/javascript" src="../vendor/jquery/jquery.min.js"></script>	
 	<script type="text/javascript" src="../vendor/jquery-ui/ui/minified/jquery-ui.custom.min.js"></script>
 	<!-- our script js -->
-	<script type="text/javascript" src="../src/layout-engineer.js"></script>
+	<script type="text/javascript" src="../src/js/layout-engineer.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery('#page-creator').layoutEngineer();
+		});
+	</script>
 </body>
 </html>
