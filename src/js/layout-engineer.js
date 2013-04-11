@@ -238,12 +238,13 @@ jQuery.extend(LayoutEngineer.Base.prototype, {
             grid: [ 10, 10 ],
             handles: "e, s, w, se, sw",
             resize: function(event, ui){
-                block.find('.ui-resizable-e, .ui-resizable-w').css('top', ((block.height() - 25) / 2) + 'px');
-                block.find('.ui-resizable-s, .ui-resizable-n').css('left', ((block.width() - 25) / 2) + 'px');
+                ui.element.find('.ui-resizable-e, .ui-resizable-w').css('top', ((ui.element.height() - 25) / 2) + 'px');
+                ui.element.find('.ui-resizable-s, .ui-resizable-n').css('left', ((ui.element.width() - 25) / 2) + 'px');
             },
         });
-        block.find('.ui-resizable-e, .ui-resizable-w').css('top', ((block.height() - 25) / 2) + 'px');
-        block.find('.ui-resizable-s, .ui-resizable-n').css('left', ((block.width() - 25) / 2) + 'px');
+
+        this.adjustResizeHandlersPosition(block);
+        
         this.layoutEngineerPage.sortable({
             items: '.layout-engineer-block',
             cursor: 'move'
@@ -263,18 +264,26 @@ jQuery.extend(LayoutEngineer.Base.prototype, {
     makeTheBlockHalfwidthToLeft: function(event){
         var block = jQuery(event.target).closest('.layout-engineer-block');
         block.css('width', '50%');
+        this.adjustResizeHandlersPosition(block);
     },
 
     // make the block half width to right
     makeTheBlockHalfwidthToRight: function(event){
         var block = jQuery(event.target).closest('.layout-engineer-block');
         block.css('width', '50%');
+        this.adjustResizeHandlersPosition(block);
     },
 
     // make the block full width
     makeTheBlockFullwidth: function(event){
         var block = jQuery(event.target).closest('.layout-engineer-block');
         block.css('width', '100%');
+        this.adjustResizeHandlersPosition(block);
+    },
+
+    adjustResizeHandlersPosition: function(block){
+        block.find('.ui-resizable-e, .ui-resizable-w').css('top', ((block.height() - 25) / 2) + 'px');
+        block.find('.ui-resizable-s, .ui-resizable-n').css('left', ((block.width() - 25) / 2) + 'px');
     },
 
     // destroy function
