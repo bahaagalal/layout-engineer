@@ -1,11 +1,12 @@
 /** reset css **/
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, iframe {
 	margin: 0;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
 	font: inherit;
 	vertical-align: top;
+	word-wrap: break-word;
 	box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -14,6 +15,7 @@ input, textarea, select {
 	border: 0;
     background: none;
     outline: none;
+    resize: none;
 }
 ol, ul {
 	list-style: none;
@@ -29,7 +31,6 @@ a img, a:hover img, a:visited img {
     border: 0;
 }
 html, body {
-    height: 100%;
     width: 100%;
     line-height: 1;
     overflow-x: hidden;
@@ -288,8 +289,8 @@ html, body {
 .layout-engineer-block {
 	border: 1px solid #C7C7C7;
 	width: 100%;
-	min-height: 100px;
-	min-width: 100px;
+	height: 40px;
+	margin-top: 20px;
 }
 .layout-engineer-text-block {
 	padding: 10px;
@@ -321,8 +322,8 @@ html, body {
 	width: 30px;
 	height: 30px;
 }
-.layout-engineer-toolpane-icon:hover {
-	border-bottom: 4px solid #FFFFFF;
+.layout-engineer-toolpane-icon:hover, .layout-engineer-toolpane-icon-highlighted{
+	border-bottom: 4px solid #F45F3A;
 }
 .layout-engineer-toolpane-icon-element {
 	width: 30px;
@@ -450,4 +451,15 @@ html, body {
 	background-color: #C7C7C7;
 	width: 25px;
 	height: 5px;
+}
+.layout-engineer-textarea {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	padding: 20px;
+}
+.layout-engineer-iframe {
+	width: 100%;
+	height: 100%;
+	padding: 20px;
 }

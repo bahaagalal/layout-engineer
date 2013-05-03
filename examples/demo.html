@@ -18,7 +18,7 @@
 
 	</div>
 
-	<div class="wrapper display-none">
+	<div class="display-none">
 
 		<div class="layout-engineer-modal background-color-black position-absolute z-index-3 display-none">
 			<h1 class="font-weight-regular font-size-xlarge color-white">Write your URL</h1>
@@ -208,31 +208,6 @@
 				</div>
 		</div>
 
-		<div class="layout-engineer-page">
-			<div class="layout-engineer-block layout-engineer-code-block font-size-medium font-weight-regular color-black position-relative display-none">
-				<div class="layout-engineer-toolpane position-absolute display-block">
-					<ul class="layout-engineer-left-pane display-inline-block background-color-black">
-						<li class="display-inline-block layout-engineer-toolpane-icon-element">
-							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-preview">
-							</a>
-						</li>
-						<li class="display-inline-block layout-engineer-toolpane-icon-element">
-							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-code">
-							</a>
-						</li>
-						<li class="display-inline-block layout-engineer-toolpane-icon-element">
-							<a href="javascript:void(0)" class="display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-trash">
-							</a>
-						</li>
-					</ul>
-					
-				</div>
-				<div class="layout-engineer-block-content">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id mauris massa. Nulla nec lobortis magna. Phasellus vitae erat risus, pellentesque ornare tellus. Donec vehicula tellus id purus luctus ac hendrerit dolor placerat. In pharetra, orci ut feugiat pellentesque, massa felis vestibulum diam, sed fermentum augue turpis eu est. Phasellus placerat vehicula viverra. Fusce pretium nulla sit amet arcu lobortis nec eleifend purus sollicitudin. Nunc faucibus pellentesque nulla, commodo venenatis dui aliquet sit amet. Praesent nec metus odio, at molestie erat. Praesent suscipit iaculis nibh quis auctor. Nulla at tortor quam
-				</div>
-			</div>
-		</div>
-
 	</div>
 	<!-- javascript files -->
 	<!-- javascript dependencies ["jquery","jquery-ui"] -->
@@ -242,6 +217,7 @@
 	<script type="text/javascript" src="../src/js/layout-engineer.js"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function(){
+			jQuery('.typekit-badge').remove();
 			jQuery('#page-creator').layoutEngineer();
 		});
 	</script>

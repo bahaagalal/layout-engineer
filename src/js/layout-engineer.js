@@ -46,6 +46,413 @@ jQuery.pluginMaker = function(plugin) {
 // defining our plugin namespace
 LayoutEngineer = {};
 
+// the prototype for LayoutEngineer Code Block Plugin
+LayoutEngineer.CodeBlock = function(element, options){
+    if(element)
+    {
+        this.init(element,options);
+    }
+}
+
+jQuery.extend(LayoutEngineer.CodeBlock.prototype,{
+
+    name: "layoutEngineerCodeBlock",
+    options: {
+    },
+
+    init: function(element, options){
+
+        // checking if it is a valid textarea input 
+        if(jQuery(element).is('textarea'))
+        {
+            // save a reference to our element
+            this.element = jQuery(element);
+            // extend the options
+            jQuery.extend(this.options, options);
+            // put this object in the data element
+            jQuery.data(element, this.name, this);
+            // reference the block element
+            this.block = this.element.closest('.layout-engineer-block');
+            // reference the toolpane
+            this.toolPane = this.block.find('.layout-engineer-left-pane');
+            // default height
+            this.defaultHeight = this.element.outerHeight();
+            // create the toolbar pane
+            // preview button
+            this.previewButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-preview layout-engineer-toolpane-icon-highlighted').attr('href', 'javascript:void(0);');
+            // code button
+            this.codeButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-code').attr('href', 'javascript:void(0);');
+            // binding actions on code and preview buttons
+            this.codeButton.bind('click', jQuery.proxy(this.commandCode, this));
+            this.previewButton.bind('click', jQuery.proxy(this.commandPreview, this));
+            // binding an action for auto resizing when writing content in the text bar
+            this.element.bind('keyup', jQuery.proxy(this.textBoxAutoResize, this));
+            // bind for block resizing element
+            this.block.bind('resize', jQuery.proxy(this.blockResize, this));
+            // create the iframe for the preview
+            this.previewIframe = jQuery('<iframe></iframe>').appendTo(this.block).addClass('layout-engineer-iframe');
+            // updating the iframe contents with what we already have
+            this.previewIframe.contents().find('body').html(this.element.val());
+            // hide the element
+            this.element.hide();
+        }
+    },
+
+    commandCode: function(){
+        this.element.show().focus();
+        this.previewIframe.hide();
+        this.codeButton.addClass('layout-engineer-toolpane-icon-highlighted');
+        this.previewButton.removeClass('layout-engineer-toolpane-icon-highlighted');
+        this.textBoxAutoResize();
+    },
+
+    commandPreview: function(){
+        this.element.hide();
+        this.previewIframe.show().contents().find('body').html(this.element.val());
+        this.codeButton.removeClass('layout-engineer-toolpane-icon-highlighted');
+        this.previewButton.addClass('layout-engineer-toolpane-icon-highlighted');
+        this.iframeAutoResize();
+    },
+
+    textBoxAutoResize: function(){
+        this.block.css('height', this.defaultHeight + 'px');
+        this.block.css('height', parseInt(this.element.prop('scrollHeight')) + 'px').trigger('autoresize');
+    },
+
+    iframeAutoResize: function(){
+        this.block.css('height', this.defaultHeight + 'px');
+        this.block.css('height', parseInt(this.previewIframe.contents().find('body').outerHeight() + (2 * this.defaultHeight)) + 'px').trigger('autoresize');
+    },
+
+    blockResize: function(){
+        if(this.element.is(':visible'))
+        {
+            this.textBoxAutoResize();
+        }
+        else
+        {
+            this.iframeAutoResize();
+        }
+    },
+
+    destroy: function(){
+        // removing buttons from the toolPane
+        this.codeButton.remove();
+        this.previewButton.remove();
+        // removing the iframe
+        this.previewIframe.remove();
+        // making sure the element is shown
+        this.element.show();   
+        // removing the data object from the element
+        jQuery.removeData(this.element, this.name);  
+    }
+});
+
+// the prototype for LayoutEngineer Text Block Plugin
+LayoutEngineer.TextBlock = function(element, options){
+    if(element)
+    {
+        this.init(element,options);
+    }
+}
+
+jQuery.extend(LayoutEngineer.TextBlock.prototype,{
+
+    name: "layoutEngineerTextBlock",
+    options: {
+    },
+
+    init: function(element, options){
+
+        // checking if it is a valid textarea input 
+        if(jQuery(element).is('textarea'))
+        {
+            // save a reference to our element
+            this.element = jQuery(element);
+            // extend the options
+            jQuery.extend(this.options, options);
+            // put this object in the data element
+            jQuery.data(element, this.name, this);
+            // hide the element
+            this.element.hide();
+            // reference the block element
+            this.block = this.element.closest('.layout-engineer-block');
+            // reference the toolpane
+            this.toolPane = this.block.find('.layout-engineer-left-pane');
+            // default height
+            this.defaultHeight = this.element.outerHeight();
+            // create the toolbar pane   
+            this.codeButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-code').attr('href', 'javascript:void(0);');
+            this.colorButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-color').attr('href', 'javascript:void(0);');
+            this.linkButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-link').attr('href', 'javascript:void(0);');
+            this.orderedlistButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-ordered-list').attr('href', 'javascript:void(0);');
+            this.unorderedlistButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-unordered-list').attr('href', 'javascript:void(0);');
+            this.justifyButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-align-justify').attr('href', 'javascript:void(0);'); 
+            this.rightButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-align-right').attr('href', 'javascript:void(0);');
+            this.centerButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-align-center').attr('href', 'javascript:void(0);');
+            this.leftButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-align-left').attr('href', 'javascript:void(0);');
+            this.h3Button = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-h3').attr('href', 'javascript:void(0);');
+            this.h2Button = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-h2').attr('href', 'javascript:void(0);');
+            this.h1Button = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-h1').attr('href', 'javascript:void(0);');
+            this.italicButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-italic').attr('href', 'javascript:void(0);');
+            this.underlineButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-underline').attr('href', 'javascript:void(0);');
+            this.boldButton = jQuery('<a></a>').prependTo(this.toolPane).wrap('<li class="display-inline-block" />').addClass('display-inline-block layout-engineer-toolpane-icon layout-engineer-toolpane-icon-bold').attr('href', 'javascript:void(0);');
+            // binding actions on toolPane buttons
+            this.boldButton.bind('click' , jQuery.proxy(this.commandBold, this));
+            this.underlineButton.bind('click', jQuery.proxy(this.commandUnderline, this));
+            this.italicButton.bind('click' , jQuery.proxy(this.commandItalic, this));
+            this.h1Button.bind('click' , jQuery.proxy(this.commandH1, this));
+            this.h2Button.bind('click' , jQuery.proxy(this.commandH2, this));
+            this.h3Button.bind('click' , jQuery.proxy(this.commandH3, this));
+            this.leftButton.bind('click' , jQuery.proxy(this.commandLeft, this));
+            this.centerButton.bind('click' , jQuery.proxy(this.commandCenter, this));
+            this.rightButton.bind('click' , jQuery.proxy(this.commandRight, this));
+            this.justifyButton.bind('click' , jQuery.proxy(this.commandJustify, this));
+            this.unorderedlistButton.bind('click' , jQuery.proxy(this.commandUnorderedlist, this));
+            this.orderedlistButton.bind('click' , jQuery.proxy(this.commandOrderedlist, this));
+            this.codeButton.bind('click' , jQuery.proxy(this.commandCode, this));
+            // bind for block resizing element
+            this.block.bind('resize', jQuery.proxy(this.blockResize, this));
+            // create the iframe for the code editing
+            this.editorIframe = jQuery('<iframe></iframe>').appendTo(this.block).addClass('layout-engineer-iframe');
+            // reference the object of the iframe
+            this.editorWidget = this.editorIframe.get(0);
+            // referening the iframe content document which is our editor
+            if (this.editorWidget.contentDocument)
+            {
+                this.editor = this.editorWidget.contentDocument;
+            }
+            else
+            {
+                this.editor = this.editorWidget.contentWindow.document;
+            }
+            if ('contentEditable' in this.editor.body) 
+            {
+                this.editor.body.contentEditable = true;
+            }
+            else if ('designMode' in this.editor) 
+            {
+                this.editor.designMode = "on";                
+            }
+            // updating the iframe contents with what we already have
+            this.editorIframe.contents().find('body').html(this.element.val());
+            // bind event to detect if text is selected
+            this.editorIframe.contents().find('body').bind('mouseup', jQuery.proxy(this.getSelectionState, this));
+            // bind event to update the corrosponding textarea on change
+            this.editorIframe.contents().find('body').bind('keyup', jQuery.proxy(this.updateTextArea, this));
+            // bind event to textarea auto resize
+            this.element.bind('keyup', jQuery.proxy(this.textBoxAutoResize, this));
+            // initializing 
+            this.iframeAutoResize();
+            this.editor.body.focus();
+        }
+    },
+
+    updateTextArea: function(){
+        this.element.val(this.editorIframe.contents().find('body').html());
+        this.iframeAutoResize();
+    },
+
+    highlightButton: function(button, state){
+        // remove or add class highlight to the button according to the state!
+        if(state == true)
+        {
+            button.addClass('layout-engineer-toolpane-icon-highlighted');
+        }
+        else if(state == false)
+        {
+            button.removeClass('layout-engineer-toolpane-icon-highlighted');
+        }
+        return state;
+    },
+
+    execCommand: function(commandName, parameter){
+        if(! parameter) 
+        {
+            parameter = null;
+        }
+        // execute the command and update the corrosponding textarea
+        this.editor.execCommand(commandName, false, parameter);
+        this.updateTextArea();
+        this.getSelectionState();
+    },
+
+    queryCommandState: function(commandName){
+        return this.editor.queryCommandState(commandName);
+    },
+
+    queryCommandValue: function(commandName){
+        return this.editor.queryCommandValue(commandName);
+    },
+
+    getSelectionState: function(){
+        this.isBold();
+        this.isUnderline();
+        this.isItalic();
+        this.isH1();
+        this.isH2();
+        this.isH3();
+        this.isLeft();
+        this.isCenter();
+        this.isRight();
+        this.isJustify();
+        this.isUnorderedList();
+        this.isOrderedList();
+        this.iframeAutoResize();
+    },
+
+    commandBold: function(){
+        this.execCommand('bold');
+    },
+    commandUnderline: function(){
+        this.execCommand('underline');
+    },
+    commandItalic: function(){
+        this.execCommand('italic');
+    },
+    commandH1: function(){
+        if(this.isH1())
+        {
+            this.execCommand('formatBlock', 'p');
+        }
+        else
+        {
+            this.execCommand('formatBlock', 'h1');
+        }
+    },
+    commandH2: function(){
+        if(this.isH2())
+        {
+            this.execCommand('formatBlock', 'p');
+        }
+        else
+        {
+            this.execCommand('formatBlock', 'h2');
+        }
+    },
+    commandH3: function(){
+        if(this.isH3())
+        {
+            this.execCommand('formatBlock', 'p');
+        }
+        else
+        {
+            this.execCommand('formatBlock', 'h3');
+        }
+    },
+    commandLeft: function(){
+        this.execCommand('justifyLeft');
+    },
+    commandCenter: function(){
+        this.execCommand('justifyCenter');
+    },
+    commandRight: function(){
+        this.execCommand('justifyRight');
+    },
+    commandJustify: function(){
+        this.execCommand('justifyFull');
+    },
+    commandUnorderedlist: function(){
+        this.execCommand('insertUnorderedList');
+    },
+    commandOrderedlist: function(){
+        this.execCommand('insertOrderedList');
+    },
+    commandCode: function(){
+        /*
+        if(this.element.is(':visible'))
+        {
+            this.editorIframe.contents().find('body').html(this.element.val());
+            this.iframeAutoResize();
+            this.editor.body.focus();
+        }
+        else
+        {
+            this.toolPane.find('a').removeClass('layout-engineer-toolpane-icon-highlighted');
+            this.element.focus();
+        }
+        this.element.toggle();
+        this.editorIframe.toggle();
+        this.codeButton.toggleClass('layout-engineer-toolpane-icon-highlighted');*/
+    },
+
+    textBoxAutoResize: function(){
+        this.block.css('height', this.defaultHeight + 'px');
+        this.block.css('height', parseInt(this.element.outerHeight()) + 'px').trigger('autoresize');
+    },
+
+    iframeAutoResize: function(){
+        var scrollTop = jQuery(document).scrollTop();
+        var currentHeight = this.block.height();
+        this.block.css('height', this.defaultHeight + 'px');
+        var newHeight = parseInt(this.editorIframe.contents().find('body').outerHeight() + (2 * this.defaultHeight));
+        this.block.css('height', newHeight + 'px').trigger('autoresize');
+        if((newHeight - currentHeight) > this.defaultHeight)
+        {
+            scrollTop = scrollTop + (newHeight - currentHeight);
+        }
+        jQuery(document).scrollTop(scrollTop);
+    },
+
+    blockResize: function(){
+        if(this.element.is(':visible'))
+        {
+            this.textBoxAutoResize();
+        }
+        else
+        {
+            this.iframeAutoResize();
+        }
+    },
+
+    isBold: function(){
+        this.highlightButton(this.boldButton, this.queryCommandState('bold'));
+    },
+    isUnderline: function(){
+        this.highlightButton(this.underlineButton, this.queryCommandState('underline'));
+    },
+    isH1: function(){
+        return this.highlightButton(this.h1Button, (this.queryCommandValue('formatBlock') == 'h1'));
+    },
+    isH2: function(){
+        return this.highlightButton(this.h2Button, (this.queryCommandValue('formatBlock') == 'h2'));
+    },
+    isH3: function(){
+        return this.highlightButton(this.h3Button, (this.queryCommandValue('formatBlock') == 'h3'));
+    },
+    isItalic: function(){
+        this.highlightButton(this.italicButton, this.queryCommandState('italic'));
+    },
+    isLeft: function(){
+        this.highlightButton(this.leftButton, this.queryCommandState('justifyLeft'));
+    },
+    isCenter: function(){
+        this.highlightButton(this.centerButton, this.queryCommandState('justifyCenter'));
+    },
+    isRight: function(){
+        this.highlightButton(this.rightButton, this.queryCommandState('justifyRight'));
+    },
+    isJustify: function(){
+        this.highlightButton(this.justifyButton, this.queryCommandState('justifyFull'));
+    },
+    isUnorderedList: function(){
+        this.highlightButton(this.unorderedlistButton, this.queryCommandState('insertUnorderedList'));
+    },
+    isOrderedList: function(){
+        this.highlightButton(this.orderedlistButton, this.queryCommandState('insertOrderedList'));
+    },
+
+    destroy: function(){
+        // removing buttons from the toolPane
+        // removing the iframe
+        this.editorIframe.remove();
+        // making sure the element is shown
+        this.element.show();   
+        // removing the data object from the element
+        jQuery.removeData(this.element, this.name);  
+    }
+});
+
 // the prototype for LayoutEngineer Base Plugin
 LayoutEngineer.Base = function(element, options){
     if(element)
@@ -201,7 +608,20 @@ jQuery.extend(LayoutEngineer.Base.prototype, {
     // add text block
     addTextBlock: function(){
         var block = this.addBlock();
-        //block.css('background-color','black');
+        // control the resizing behaviour of the block
+        block.resizable({
+            maxWidth: this.layoutEngineerPage.width(),
+            autoHide: false,
+            grid: [ 10, 10 ],
+            handles: "e, w",
+            resize: function(event, ui){
+                ui.element.find('.ui-resizable-e, .ui-resizable-w').css('top', ((ui.element.height() - 25) / 2) + 'px');
+                ui.element.find('.ui-resizable-s, .ui-resizable-n').css('left', ((ui.element.width() - 25) / 2) + 'px');
+            },
+        });
+        this.adjustResizeHandlersPosition(block);
+        // extending the functionality of the basic block and turn it into code block
+        var element = jQuery('<textarea></textarea>').appendTo(block).addClass('layout-engineer-textarea display-block font-weight-regular font-size-medium').layoutEngineerTextBlock();
     },
 
     // add image block
@@ -212,8 +632,22 @@ jQuery.extend(LayoutEngineer.Base.prototype, {
 
     // add code block
     addCodeBlock: function(){
+        // add basic block
         var block = this.addBlock();
-        //block.css('background-color','red');
+        // control the resizing behaviour of the block
+        block.resizable({
+            maxWidth: this.layoutEngineerPage.width(),
+            autoHide: false,
+            grid: [ 10, 10 ],
+            handles: "e, w",
+            resize: function(event, ui){
+                ui.element.find('.ui-resizable-e, .ui-resizable-w').css('top', ((ui.element.height() - 25) / 2) + 'px');
+                ui.element.find('.ui-resizable-s, .ui-resizable-n').css('left', ((ui.element.width() - 25) / 2) + 'px');
+            },
+        });
+        this.adjustResizeHandlersPosition(block);
+        // extending the functionality of the basic block and turn it into code block
+        var element = jQuery('<textarea></textarea>').appendTo(block).addClass('layout-engineer-textarea display-block font-weight-regular font-size-medium').layoutEngineerCodeBlock();
     },
 
     // basic add block
@@ -232,24 +666,11 @@ jQuery.extend(LayoutEngineer.Base.prototype, {
         blockRightHalfWidthButton.bind('click', jQuery.proxy(this.makeTheBlockHalfwidthToRight, this));
         blockFullWidthButton.bind('click', jQuery.proxy(this.makeTheBlockFullwidth, this));
         // make all blocks movable
-        this.layoutEngineerPage.find('.layout-engineer-block').resizable({
-            maxWidth: this.layoutEngineerPage.width(),
-            autoHide: false,
-            grid: [ 10, 10 ],
-            handles: "e, s, w, se, sw",
-            resize: function(event, ui){
-                ui.element.find('.ui-resizable-e, .ui-resizable-w').css('top', ((ui.element.height() - 25) / 2) + 'px');
-                ui.element.find('.ui-resizable-s, .ui-resizable-n').css('left', ((ui.element.width() - 25) / 2) + 'px');
-            },
-        });
-
-        this.adjustResizeHandlersPosition(block);
-        
         this.layoutEngineerPage.sortable({
             items: '.layout-engineer-block',
             cursor: 'move'
         });
-        
+        block.bind('autoresize', jQuery.proxy(this.blockAutoResize, this));
         this.hideAddBlockModalWindow();
         return block;
     },
@@ -286,6 +707,11 @@ jQuery.extend(LayoutEngineer.Base.prototype, {
         block.find('.ui-resizable-s, .ui-resizable-n').css('left', ((block.width() - 25) / 2) + 'px');
     },
 
+    blockAutoResize: function(event){
+        var block = jQuery(event.target);
+        this.adjustResizeHandlersPosition(block);
+    },
+
     // destroy function
     destroy: function(){
         // removing our registered data object from the element
@@ -297,3 +723,5 @@ jQuery.extend(LayoutEngineer.Base.prototype, {
 
 // registering our plugin into the jQuery namespace
 jQuery.pluginMaker(LayoutEngineer.Base);
+jQuery.pluginMaker(LayoutEngineer.CodeBlock);
+jQuery.pluginMaker(LayoutEngineer.TextBlock);
